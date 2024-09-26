@@ -1,0 +1,167 @@
+.home-icon-container {
+  /* border: 2px solid red; */
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 3vw;
+  width: 12vw;
+  height: 12vw;
+}
+.home-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  cursor: pointer;
+}
+.check-in-logo-container {
+  /* border: 2px solid red; */
+  width: 100vw;
+  height: 45vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2vw;
+}
+.logo-checkIn {
+  height: 90%;
+  width: 40%;
+  object-fit: contain;
+}
+.scanner-container {
+  /* border: 2px solid red; */
+  width: 100vw;
+  height: 70vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10vw;
+}
+.webcam-preview {
+  height: 100%;
+  width: 70%;
+  object-fit: cover;
+  border: 8px solid white;
+  border-radius: 5vw;
+}
+.scan-text {
+  margin-top: 5vw;
+  text-align: center;
+  font-size: 5vw;
+  color: #ffffff;
+  font-family: "Futura Md BT";
+}
+.qr-success-container {
+  /* border: 2px solid green; */
+  margin-top: 10vw;
+}
+.smiley-container {
+  /* border: 2px solid red; */
+  width: 100vw;
+  height: 20vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.smiley-img {
+  height: 100%;
+  width: 20%;
+  object-fit: contain;
+}
+.thank-you-text {
+  color: #ffffff;
+  text-align: center;
+  font-size: 9vw;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 3vw;
+  font-family: "Futura Bk BT";
+}
+.name-text {
+  color: #ffffff;
+  text-align: center;
+  font-size: 6vw;
+  padding: 0;
+  margin-top: 1vw;
+  font-family: "Futura Md BT";
+  font-weight: bold;
+  margin: 0;
+}
+.company-text {
+  color: #ffffff;
+  text-align: center;
+  font-size: 5vw;
+  padding: 0;
+  margin-top: -1vw;
+  font-family: "Futura Md BT";
+}
+.success-text {
+  color: #00ff14;
+  text-align: center;
+  font-size: 6vw;
+  padding: 0;
+  margin: 0;
+  font-family: "Futura Md BT";
+}
+.checkIn-home-btn-container {
+  margin-top: 2vw;
+  width: 100vw;
+  height: 10vw;
+  /* border: 2px solid gold; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.checkIn-home-btn {
+  height: 100%;
+  width: 25%;
+  object-fit: contain;
+  cursor: pointer;
+}
+.oops-text {
+  color: #ffffff;
+  text-align: center;
+  font-size: 9vw;
+  padding: 0;
+  margin: 0;
+  font-family: "Futura Bk BT";
+}
+.invalid-text {
+  color: #ffffff;
+  text-align: center;
+  font-size: 6vw;
+  padding: 0;
+  font-family: "Futura Md BT";
+  font-weight: bold;
+  margin: 0;
+}
+.failure-text {
+  color: #fa4b4b;
+  text-align: center;
+  font-size: 6vw;
+  padding: 0;
+  margin: 0;
+  font-family: "Futura Bk BT";
+}
+.failure-text-container {
+  /* border: 2px solid red; */
+  margin-top: 2vw;
+  margin-bottom: 6vw;
+}
+
+.qr-scanner-container div:first-child {
+  width: 70vw;
+  height: 70vw;
+  margin: auto;
+}
+
+.qr-scanner-container video {
+  width: 70vw !important;
+  height: 70vw !important;
+  object-fit: cover;
+  margin: auto;
+}
+
+.qr-scanner-container svg {
+  border: none !important;
+}
