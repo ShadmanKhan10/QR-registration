@@ -1,0 +1,24 @@
+.terminal-dropdown-container {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 50%;
+  transform: translateX(-50%);
+  /* border: 2px solid red; */
+}
+.dropDowns {
+  width: 50vw;
+  height: 9vw;
+  font-size: 5vw;
+  display: flex;
+  align-items: center;
+  background-color: #f8bf1a;
+  border: none;
+  border-radius: 2vw;
+  padding-left: 2vw;
+  box-sizing: border-box;
+}
+.dropdown-options {
+  font-size: 1.5vw;
+  height: 10vw;
+}

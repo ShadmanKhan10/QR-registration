@@ -55,6 +55,10 @@
   /* border: 2px solid green; */
   margin-top: 10vw;
 }
+.qr-failure-container {
+  /* border: 2px solid green; */
+  margin-top: 10vw;
+}
 .smiley-container {
   /* border: 2px solid red; */
   width: 100vw;
@@ -81,11 +85,12 @@
   color: #ffffff;
   text-align: center;
   font-size: 6vw;
-  padding: 0;
+  padding-bottom: 2vw;
   margin-top: 1vw;
   font-family: "Futura Md BT";
   font-weight: bold;
   margin: 0;
+  box-sizing: border-box;
 }
 .company-text {
   color: #ffffff;
@@ -137,6 +142,14 @@
 }
 .failure-text {
   color: #fa4b4b;
+  text-align: center;
+  font-size: 6vw;
+  padding: 0;
+  margin: 0;
+  font-family: "Futura Bk BT";
+}
+.failure-text1 {
+  color: #ffd053;
   text-align: center;
   font-size: 6vw;
   padding: 0;

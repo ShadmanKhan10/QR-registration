@@ -27,6 +27,8 @@ export default function SpotRegistration({ currentPage, setCurrentPage }) {
   const [emailError, setEmailError] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const [activeDay, setActiveDay] = useState("");
+
   useEffect(() => {
     if (!success) {
       setName("");
@@ -46,16 +48,20 @@ export default function SpotRegistration({ currentPage, setCurrentPage }) {
     setNameError(false);
   };
 
+  // const handleMobileNoChange = (event) => {
+  //   const value = event.target.value;
+  //   if (/^\d{0,10}$/.test(value)) {
+  //     setMobileNo(value);
+  //     if (value.length < 10) {
+  //       setMobileError(true);
+  //     } else {
+  //       setMobileError(false);
+  //     }
+  //   }
+  // };
   const handleMobileNoChange = (event) => {
-    const value = event.target.value;
-    if (/^\d{0,10}$/.test(value)) {
-      setMobileNo(value);
-      if (value.length < 10) {
-        setMobileError(true);
-      } else {
-        setMobileError(false);
-      }
-    }
+    setMobileNo(event.target.value);
+    setMobileError(false);
   };
 
   const handleCompanyNameChange = (event) => {
@@ -82,11 +88,14 @@ export default function SpotRegistration({ currentPage, setCurrentPage }) {
       isValid = false;
     }
 
-    if (!/^\d{10}$/.test(mobileNo)) {
+    // if (!/^\d{10}$/.test(mobileNo)) {
+    //   setMobileError(true);
+    //   isValid = false;
+    // }
+    if (mobileNo === "") {
       setMobileError(true);
       isValid = false;
     }
-
     if (companyName === "") {
       setCompanyError(true);
       isValid = false;
@@ -105,6 +114,21 @@ export default function SpotRegistration({ currentPage, setCurrentPage }) {
     return isValid;
   };
 
+  const getActiveDay = async () => {
+    try {
+      const response = await axios.get(
+        "http://192.168.1.36:3003/get-active-day"
+      );
+      console.log(response.data.activeDay.day);
+      setActiveDay(response.data.activeDay.day);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+  useEffect(() => {
+    getActiveDay();
+  }, []);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setNameError(false);
@@ -120,11 +144,13 @@ export default function SpotRegistration({ currentPage, setCurrentPage }) {
         company_name: companyName,
         designation: designationName,
         email: emailAddress,
+        active_day: activeDay,
+        terminal_name: localStorage.getItem("selectedTerminal"),
       };
       setLoading(true);
       try {
         const response = await axios.post(
-          "http://192.168.1.6:3003/register-user",
+          "http://192.168.1.36:3003/register-user",
           newParticipant
         );
         console.log("Participant added:", response.data);
@@ -195,7 +221,7 @@ export default function SpotRegistration({ currentPage, setCurrentPage }) {
               </div>
               {mobileError && (
                 <div className="error-container">
-                  <p className="error">Enter 10 digits Mobile Number</p>
+                  <p className="error">Enter your Mobile Number</p>
                 </div>
               )}
               <div className="input-container">
@@ -254,13 +280,6 @@ export default function SpotRegistration({ currentPage, setCurrentPage }) {
               )}
             </div>
             <div className="button-container">
-              {/* <button
-                onClick={handleSubmit}
-                type="submit"
-                className="submit-btn"
-              >
-                SUBMIT
-              </button> */}
               <img
                 src={submitButton}
                 className="submit-btn"

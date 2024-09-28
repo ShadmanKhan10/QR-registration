@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import HomePage from "./HomePage";
+import Terminal from "./Terminal";
 
 function App() {
+  const [terminlaSeclected, setTerminalSelected] = useState(false);
   return (
     <>
-      <HomePage />
+      {!terminlaSeclected ? (
+        <Terminal
+          terminlaSeclected={terminlaSeclected}
+          setTerminalSelected={setTerminalSelected}
+        />
+      ) : (
+        <HomePage />
+      )}
     </>
   );
 }

@@ -256,11 +256,12 @@
 
 // //BEST APPRAOCH ENDS
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import homeIcon from "../../assets/home.png";
 import logoCheckIn from "../../assets/logoCheckIn.png";
 import smiley from "../../assets/smiley.png";
 import frowny from "../../assets/frowny.png";
+import straight from "../../assets/straight.png";
 import homeButton from "../../assets/homeButton.png";
 import "./CheckIn.css";
 import axios from "axios";
@@ -272,17 +273,37 @@ export default function CheckIn({ currentPage, setCurrentPage }) {
   const [name, setName] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [message, setMessage] = useState("");
+  const [emoji, setEmoji] = useState(null);
+  const [failureReaction, setFailureReaction] = useState("");
+  const [activeDay, setActiveDay] = useState("");
 
   // Navigate back to the homepage
   const navigateBackHome = () => {
     setCurrentPage("homePage");
   };
 
+  const getActiveDay = async () => {
+    try {
+      const response = await axios.get(
+        "http://192.168.1.36:3003/get-active-day"
+      );
+      console.log(response.data.activeDay.day);
+      setActiveDay(response.data.activeDay.day);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+  useEffect(() => {
+    getActiveDay();
+  }, []);
+
   // Send QR request to backend
   const sendQrRequest = async (userId) => {
     try {
-      const response = await axios.post("http://192.168.1.6:3003/check-in", {
+      const response = await axios.post("http://192.168.1.36:3003/check-in", {
         userId: userId[0].rawValue,
+        terminal_name: localStorage.getItem("selectedTerminal"),
+        checkInDay: activeDay,
       });
       console.log("Backend Response:", response);
       console.log(response);
@@ -293,6 +314,7 @@ export default function CheckIn({ currentPage, setCurrentPage }) {
         setMessage(response.data.message);
         console.log(message);
         setQrStatus("success");
+        setEmoji(smiley);
       }
     } catch (error) {
       console.error(
@@ -302,10 +324,14 @@ export default function CheckIn({ currentPage, setCurrentPage }) {
       if (error.status === 409) {
         setMessage(error.response.data.message);
         setQrStatus("failure");
+        setEmoji(straight);
+        setFailureReaction("OH!");
       }
       if (error.status === 400) {
         setMessage(error.response.data.message);
         setQrStatus("failure");
+        setEmoji(frowny);
+        setFailureReaction("OOPS!");
       }
     }
   };
@@ -360,7 +386,7 @@ export default function CheckIn({ currentPage, setCurrentPage }) {
         {isQrScanned && qrStatus === "success" && (
           <div className="qr-success-container">
             <div className="smiley-container">
-              <img className="smiley-img" src={smiley} alt="smiley" />
+              <img className="smiley-img" src={emoji} alt="smiley" />
             </div>
             <p className="thank-you-text">THANK YOU</p>
             <p className="name-text">{name}</p>
@@ -381,12 +407,18 @@ export default function CheckIn({ currentPage, setCurrentPage }) {
         {isQrScanned && qrStatus === "failure" && (
           <div className="qr-failure-container">
             <div className="smiley-container">
-              <img className="smiley-img" src={frowny} alt="frowny" />
+              <img className="smiley-img" src={emoji} alt="frowny" />
             </div>
-            <p className="oops-text">OOPS</p>
+            <p className="oops-text">{failureReaction}</p>
             <div className="failure-text-container">
               <p className="invalid-text">{message}</p>
-              <p className="failure-text">Access Denied</p>
+              <p
+                className={
+                  emoji === straight ? "failure-text1" : "failure-text"
+                }
+              >
+                {emoji === straight ? "Contact Support" : "Access Denied"}
+              </p>
             </div>
             <div className="checkIn-home-btn-container">
               <img
